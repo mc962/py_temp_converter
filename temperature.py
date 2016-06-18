@@ -23,6 +23,8 @@ class Fahrenheit(Temperature):
 			new_temp = (self.old_temp - 32)*(5/9.0)
 		elif self.to_unit == 'KELVIN':
 			new_temp = (self.old_temp + 459.67)*(5/9.0)
+
+		new_temp = round(new_temp, 2)
 		return new_temp
 ##############################
 
@@ -42,6 +44,8 @@ class Celsius(Temperature):
 			new_temp = self.old_temp
 		elif self.to_unit == 'KELVIN':
 			new_temp = self.old_temp + 273.15
+		
+		new_temp = round(new_temp, 2)			
 		return new_temp
 ##############################
 
@@ -61,4 +65,6 @@ class Kelvin(Temperature):
 			new_temp = self.old_temp - 273.15
 		elif self.to_unit == 'KELVIN':
 			new_temp = self.old_temp
+		
+		new_temp = round(new_temp, 2)
 		return new_temp
