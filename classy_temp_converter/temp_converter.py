@@ -19,13 +19,13 @@ def main():
 # returns that value to converted_temp to be used later
 			if unit_from == 'FAHRENHEIT':
 				t_convert = temperature.Fahrenheit(temp, unit_from, unit_to)
-				converted_temp = t_convert.convert()
+				
 			elif unit_from == 'CELSIUS':
 				t_convert = temperature.Celsius(temp, unit_from, unit_to)
-				converted_temp = t_convert.convert()
+				
 			elif unit_from == 'KELVIN':
 				t_convert = temperature.Kelvin(temp, unit_from, unit_to)
-				converted_temp = t_convert.convert()
+			
 # in the case of an unknown unit (e.g. mispelled units, etc.), then a value error is manually raised
 			else:
 				'Unknown unit!'
@@ -35,6 +35,7 @@ def main():
 			print('Invalid unit. Units must be either fahrenheit, celsius, or kelvin.')
 # if no value errors were raised, then finishes application with appropriate output		
 		else:
+			converted_temp = t_convert.convert()
 			print('Old temp was: ', temp, 'and new temp is: ', converted_temp)
 
 # function to get user input
