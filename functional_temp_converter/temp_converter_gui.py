@@ -98,60 +98,93 @@ class TempConverterGUI:
 	def instructions(self):
 		tkinter.messagebox.showinfo('Instructions', 'This application allows the user to convert a temperature between Fahrenheit, Celsius, and Kelvin. '\
 		 'A user may select a unit to convert from, a unit to convert to, and what temperature they would like to convert. '\
-		  'Using this information they may convert the entered temperature into the desired unit.')
+		  'Using this information they may convert the entered temperature into the desired unit.\n\n'\
+		  'Note: Currently answers may be slightly different than expected due to rounding')
 #########################################
 # called by the convert button, uses from_radio selection to decide who to convert into(which conversion function to call)
 	def do_convert(self):
-		radio_value = self.from_radio.get()
-		if radio_value == 'FAHRENHEIT':
-			converted_temp = self.f_convert()
-		elif radio_value == 'CELSIUS':
-			converted_temp = self.c_convert()
-		elif radio_value == 'KELVIN':
-			converted_temp = self.k_convert()
-# sets self.answer(and so answer label)	to value returned into converted_temp
-		self.answer.set(converted_temp)
+		try:
+			self.temperature = float(self.temp_entry.get())
+		except ValueError:			
+			if self.temp_entry.get() == '':
+				value_error_message = 'Temperature may not be blank!'
+			else:
+				value_error_message = 'Temperature can only be a numerical value!'
+
+			tkinter.messagebox.showinfo('ERROR!', value_error_message)
+
+
+		else:	
+			radio_value = self.from_radio.get()
+			if radio_value == 'FAHRENHEIT':
+				converted_temp = self.f_convert()
+			elif radio_value == 'CELSIUS':
+				converted_temp = self.c_convert()
+			elif radio_value == 'KELVIN':
+				converted_temp = self.k_convert()
+	# sets self.answer(and so answer label)	to value returned into converted_temp
+			try:
+				self.answer.set(converted_temp)
+			except UnboundLocalError:
+				#print(self.from_radio.get() + '  : ' + self.to_radio.get())
+				if self.from_radio.get() == '' and self.to_radio.get() == '':
+					tkinter.messagebox.showinfo('ERROR!', 'You must pick units to convert TO and FROM!')
+				else:
+					tkinter.messagebox.showinfo('ERROR!', 'You must pick units to convert from!')
+			# except ValueError:
+			# 	tkinter.messagebox.showinfo('ERROR!', 'Temperature may only be a number!')
 ###########################################################
 # series of functions for each individual unit to hold conversion formulas for each possible case
 # using self.to_radio selection to decide which conversion to perform, then returns the resulting temperature 
 # for use in do_convert	
-	def f_convert(self):	
-		temperature = float(self.temp_entry.get())
+	def f_convert(self):			
+		radio_value = self.to_radio.get()
+		try:
+			if radio_value == 'FAHRENHEIT':
+				new_temp = self.temperature
+			elif radio_value == 'CELSIUS':
+				new_temp = (self.temperature - 32)*(5/9.0)
+			elif radio_value == 'KELVIN':
+				new_temp = (self.temperature + 459.67)*(5/9.0)
+
+			return round(new_temp)
+
+		except UnboundLocalError:
+			tkinter.messagebox.showinfo('ERROR!', 'You must pick units to convert to!')
+
+	def c_convert(self):		
+		radio_value = self.to_radio.get()
+		try:
+			if radio_value == 'FAHRENHEIT':
+				new_temp = (9/5.0)*self.temperature + 32.0
+			elif radio_value == 'CELSIUS':
+				new_temp = self.temperature
+			elif radio_value== 'KELVIN':
+				new_temp = self.temperature + 273.15	
+
+			return round(new_temp)
+
+		except UnboundLocalError:
+			tkinter.messagebox.showinfo('ERROR!', 'You must pick units to convert to!')
+			
+	def k_convert(self):		
+		radio_value = self.to_radio.get()
+		try:
+			if radio_value == 'FAHRENHEIT':
+				new_temp = (9/5.0)*(self.temperature-273.15) + 32
+			elif radio_value == 'CELSIUS':
+				new_temp = self.temperature - 273.15
+			elif radio_value == 'KELVIN':
+				new_temp = self.temperature
+
+			return round(new_temp)
 		
-		radio_value = self.to_radio.get()
-		if radio_value == 'FAHRENHEIT':
-			new_temp = temperature
-		elif radio_value == 'CELSIUS':
-			new_temp = (temperature - 32)*(5/9.0)
-		elif radio_value == 'KELVIN':
-			new_temp = (temperature + 459.67)*(5/9.0)
+		except UnboundLocalError:
+			tkinter.messagebox.showinfo('ERROR!', 'You must pick units to convert to!')
+			
 
-		return new_temp
 
-	def c_convert(self):
-		temperature = float(self.temp_entry.get())
-		radio_value = self.to_radio.get()
-		if radio_value == 'FAHRENHEIT':
-			new_temp = (9/5.0)*temperature + 32.0
-		elif radio_value == 'CELSIUS':
-			new_temp = temperature
-		elif radio_value== 'KELVIN':
-			new_temp = temperature + 273.15	
 
-		return new_temp
-
-	def k_convert(self):
-		temperature = float(self.temp_entry.get())
-		radio_value = self.to_radio.get()
-		if radio_value == 'FAHRENHEIT':
-			new_temp = (9/5.0)*(temperature-273.15) + 32
-		elif radio_value == 'CELSIUS':
-			new_temp = temperature - 273.15
-		elif radio_value == 'KELVIN':
-			new_temp = temperature
-
-		return new_temp
-	
 conv_gui = TempConverterGUI()
 
 
