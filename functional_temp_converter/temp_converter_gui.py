@@ -10,53 +10,56 @@ class TempConverterGUI:
 		
 		# create main window, and set a custom window title
 		self.main_window = tkinter.Tk()
+		# set main app_window to desired size and color
+		self.main_window.geometry("320x250")
+		self.main_window.configure(background = '#ffff66')
 		self.main_window.wm_title("Convert Temperatures")
 
 		# creates a top frame with label to give a title for the application
-		self.top_frame = tkinter.Frame(self.main_window)
-		self.title_label = tkinter.Label(self.top_frame, text= 'Temperature Converter')
+		self.top_frame = tkinter.Frame(self.main_window, background = '#ffff66')
+		self.title_label = tkinter.Label(self.top_frame, background = '#ffff66', text= 'Temperature Converter', font=("TkDefaultFont", 20))
 		self.title_label.pack(side='top')
 		self.top_frame.pack()
 		
 		# create middle frame to hold main program components
-		self.mid_frame = tkinter.Frame(self.main_window)
+		self.mid_frame = tkinter.Frame(self.main_window, background = '#ffff66')
 #############################################################################################
 		# create frame to hold the unit lists
-		self.lists_frame = tkinter.Frame(self.mid_frame)
+		self.lists_frame = tkinter.Frame(self.mid_frame, background = '#ffff66')
 		##########################
 		# create frame to hold original unit to convert from list components		
-		self.from_list_frame = tkinter.Frame(self.lists_frame)
-		self.from_label = tkinter.Label(self.from_list_frame, text='Convert from:')
+		self.from_list_frame = tkinter.Frame(self.lists_frame, background = '#ffff66')
+		self.from_label = tkinter.Label(self.from_list_frame, background = '#ffff66', text='Convert from:')
 		self.from_label.pack(side='top')
 
 		# creates radio button lists to allow user to decide which units to convert from
 		self.from_radio = tkinter.StringVar()
-		self.fb1 = tkinter.Radiobutton(self.from_list_frame, text= 'Fahrenheit', variable= self.from_radio, value= 'FAHRENHEIT')
-		self.fb2 = tkinter.Radiobutton(self.from_list_frame, text= 'Celsius', variable= self.from_radio, value= 'CELSIUS')
-		self.fb3 = tkinter.Radiobutton(self.from_list_frame, text= 'Kelvin', variable= self.from_radio, value= 'KELVIN')
+		self.fb1 = tkinter.Radiobutton(self.from_list_frame, background = '#ffff66', text= 'Fahrenheit', width=10, variable= self.from_radio, value= 'FAHRENHEIT')
+		self.fb2 = tkinter.Radiobutton(self.from_list_frame, background = '#ffff66', text= 'Celsius', width=10, variable= self.from_radio, value= 'CELSIUS')
+		self.fb3 = tkinter.Radiobutton(self.from_list_frame, background = '#ffff66', text= 'Kelvin', width=10, variable= self.from_radio, value= 'KELVIN')
 		self.fb1.pack()
 		self.fb2.pack()
 		self.fb3.pack()
 		########################
 		# create frame to hold list components to decide which unit to convert to		
-		self.to_list_frame = tkinter.Frame(self.lists_frame)
-		self.to_label = tkinter.Label(self.to_list_frame, text='Convert to:')
+		self.to_list_frame = tkinter.Frame(self.lists_frame, background = '#ffff66')
+		self.to_label = tkinter.Label(self.to_list_frame, background = '#ffff66', text='Convert to:')
 		self.to_label.pack(side='top')
 		# creates radio button lists to allow user to decide which units to convert to
 		self.to_radio = tkinter.StringVar()
-		self.tb1 = tkinter.Radiobutton(self.to_list_frame, text= 'Fahrenheit', variable= self.to_radio, value= 'FAHRENHEIT')
-		self.tb2 = tkinter.Radiobutton(self.to_list_frame, text= 'Celsius', variable= self.to_radio, value= 'CELSIUS')
-		self.tb3 = tkinter.Radiobutton(self.to_list_frame, text= 'Kelvin', variable= self.to_radio, value= 'KELVIN')
+		self.tb1 = tkinter.Radiobutton(self.to_list_frame, background = '#ffff66', text= 'Fahrenheit', width=10, variable= self.to_radio, value= 'FAHRENHEIT')
+		self.tb2 = tkinter.Radiobutton(self.to_list_frame, background = '#ffff66', text= 'Celsius', width=10, variable= self.to_radio, value= 'CELSIUS')
+		self.tb3 = tkinter.Radiobutton(self.to_list_frame, background = '#ffff66', text= 'Kelvin', width=10, variable= self.to_radio, value= 'KELVIN')
 		self.tb1.pack()
 		self.tb2.pack()
 		self.tb3.pack()
 #############################################################################################		
 		# create frame to hold textbox input
-		self.entry_frame = tkinter.Frame(self.mid_frame)
+		self.entry_frame = tkinter.Frame(self.mid_frame, background = '#ffff66')
 		
 
-		self.temp_prompt_label = tkinter.Label(self.entry_frame, text='Enter a temperature:')
-		self.temp_entry = tkinter.Entry(self.entry_frame, width=10)
+		self.temp_prompt_label = tkinter.Label(self.entry_frame, background = '#ffff66', text='Enter a temperature:')
+		self.temp_entry = tkinter.Entry(self.entry_frame, background = '#ffff66', width=10)
 
 
 		self.temp_prompt_label.pack(side='top')
@@ -65,17 +68,18 @@ class TempConverterGUI:
 		# give option for rounding, checked to round to integer by default by default
 		self.cb_var = tkinter.IntVar()
 		self.cb_var.set(1)
-		self.cb = tkinter.Checkbutton(self.entry_frame, text='Check to round', variable=self.cb_var)
+		self.cb = tkinter.Checkbutton(self.entry_frame, background = '#ffff66', text='Check to round', variable=self.cb_var)
 
 		self.cb.pack(side='top')
 ############################################################################################################################################################################
 ############################################################################################################################################################################					
 		# create frame to hold convert button components and answer label components		
-		self.convert_frame = tkinter.Frame(self.mid_frame)
+		self.convert_frame = tkinter.Frame(self.mid_frame, background = '#ffff66')
 
 		# label to display answer
 		self.answer = tkinter.StringVar()
 		self.answer_label = tkinter.Label(self.convert_frame, textvariable=self.answer)
+		self.answer_label.configure(background='#33ccff', width=10)
 		self.answer_label.pack(side='bottom')
 
 		# convert button for actual conversion
@@ -83,25 +87,28 @@ class TempConverterGUI:
 		self.convert_button.pack(side='top')
 #####################################################
 		# create a bottom frame for miscellaneous buttons
-		self.bottom_frame = tkinter.Frame(self.main_window)
+		self.bottom_frame = tkinter.Frame(self.main_window, width=320, height=23, background = '#ffff66')
+		# turn off pack_propagate to allow this frame to be sized as desired, allowing buttons to be moved to desired locations in window
+		self.bottom_frame.pack_propagate(False)
+
 
 		# instructions button that makes popup box telling how to use app
-		self.instructions_button = tkinter.Button(self.bottom_frame, text='Instructions', command=self.instructions)
+		self.instructions_button = tkinter.Button(self.bottom_frame, width=8, text='Instructions', command=self.instructions)
 		self.instructions_button.pack(side='left')
 		
 		# quit button that quits app
-		self.quit_button = tkinter.Button(self.bottom_frame, text='Quit', command=self.main_window.destroy)
+		self.quit_button = tkinter.Button(self.bottom_frame, width=8, text='Quit', command=self.main_window.destroy)
 		self.quit_button.pack(side='right')
 ##############################################		
 		# packup the frames
 		self.from_list_frame.pack(side='left')
 		self.to_list_frame.pack(side='left')
 
-		self.lists_frame.pack(side='left')
-		self.convert_frame.pack(side='left')
-		self.entry_frame.pack(side='right')
+		self.entry_frame.pack(side='top')
+		self.lists_frame.pack(side='top')
+		self.convert_frame.pack(side='top')		
 
-		self.mid_frame.pack(side ='top')
+		self.mid_frame.pack(side ='top')		
 		self.bottom_frame.pack(side='bottom')
 		
 		# enter main loop		
